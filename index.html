@@ -8,32 +8,46 @@
 </head>
 <body>
     <header>
-        <h1>Medical Records Management</h1>
+        <h1>Medical Records System</h1>
     </header>
     <main>
-        <section id="entry-form">
-            <h2>Add Patient</h2>
-            <form id="patientForm">
-                <label for="name">Name:</label>
-                <input type="text" id="name" required>
-                
-                <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" required>
-                
-                <label for="address">Address:</label>
-                <input type="text" id="address">
-                
-                <label for="history">Medical History:</label>
-                <textarea id="history"></textarea>
-                
-                <button type="submit">Add Record</button>
+        <section id="search-section">
+            <p>Search for patients or add a new one:</p>
+            <input type="text" id="search" placeholder="Enter patient name..." />
+            <button id="search-btn">Search</button>
+            <button id="add-patient-btn">Add New Patient</button>
+            <div id="results"></div>
+        </section>
+
+        <section id="details-section" style="display: none;">
+            <h2>Patient Details</h2>
+            <div id="patient-info"></div>
+            <form id="patient-form">
+                <input type="hidden" id="patient-id" />
+                <label>
+                    Name:
+                    <input type="text" id="patient-name" required />
+                </label>
+                <label>
+                    Date of Birth:
+                    <input type="date" id="patient-dob" required />
+                </label>
+                <label>
+                    Address:
+                    <input type="text" id="patient-address" />
+                </label>
+                <label>
+                    Phone Number:
+                    <input type="text" id="patient-phone" />
+                </label>
+                <button type="submit" id="save-btn">Save</button>
+                <button type="button" id="cancel-btn">Cancel</button>
             </form>
         </section>
-        <section id="records">
-            <h2>Patient Records</h2>
-            <div id="patientRecords"></div>
-        </section>
     </main>
-    <script src="app.js"></script>
+    <footer>
+        <p>&copy; 2025 Medical Records System. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Patient Details</h1>
+    </header>
+    <main>
+        <div id="patient-details">
+            <!-- Patient info will load dynamically -->
+        </div>
+        <a href="/" class="button">Back to Records</a>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const patientId = urlParams.get('id');
+
+        fetch(`/api/patients/${patientId}`)
+            .then(response => response.json())
+            .then(patient => {
+                document.getElementById('patient-details').innerHTML = `
+                    <p><strong>ID:</strong> ${patient.PatientID}</p>
+                    <p><strong>Name:</strong> ${patient.Name}</p>
+                    <p><strong>Date of Birth:</strong> ${patient.DOB}</p>
+                    <p><strong>Address:</strong> ${patient.Address}</p>
+                    <p><strong>Phone Number:</strong> ${patient.PhoneNumber}</p>
+                `;
+            })
+            .catch(err => console.error('Error fetching patient details:', err));
+    </script>
+</body>
+</html>
