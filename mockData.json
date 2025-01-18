@@ -1,0 +1,100 @@
+[
+    {
+        "PatientID": 1,
+        "Name": "Alice Johnson",
+        "DOB": "1992-02-14",
+        "Address": "123 Maple St, Springfield",
+        "PhoneNumber": "555-1234"
+    },
+    {
+        "PatientID": 2,
+        "Name": "John Smith",
+        "DOB": "1988-05-10",
+        "Address": "456 Oak St, Springfield",
+        "PhoneNumber": "555-5678"
+    },
+    {
+        "PatientID": 3,
+        "Name": "Emma Davis",
+        "DOB": "1995-07-18",
+        "Address": "789 Pine St, Springfield",
+        "PhoneNumber": "555-9101"
+    },
+    {
+        "PatientID": 4,
+        "Name": "William Wilson",
+        "DOB": "1975-11-03",
+        "Address": "321 Elm St, Springfield",
+        "PhoneNumber": "555-1122"
+    },
+    {
+        "PatientID": 5,
+        "Name": "Sophia Martinez",
+        "DOB": "2000-05-25",
+        "Address": "654 Cedar St, Springfield",
+        "PhoneNumber": "555-3344"
+    },
+    {
+        "PatientID": 6,
+        "Name": "James Garcia",
+        "DOB": "1965-09-30",
+        "Address": "987 Birch St, Springfield",
+        "PhoneNumber": "555-5566"
+    },
+    {
+        "PatientID": 7,
+        "Name": "Isabella Hernandez",
+        "DOB": "1980-12-11",
+        "Address": "159 Walnut St, Springfield",
+        "PhoneNumber": "555-7788"
+    },
+    {
+        "PatientID": 8,
+        "Name": "Oliver Lee",
+        "DOB": "1998-06-19",
+        "Address": "753 Chestnut St, Springfield",
+        "PhoneNumber": "555-9900"
+    },
+    {
+        "PatientID": 9,
+        "Name": "Mia Thomas",
+        "DOB": "2003-01-07",
+        "Address": "852 Oak St, Springfield",
+        "PhoneNumber": "555-2233"
+    },
+    {
+        "PatientID": 10,
+        "Name": "Lucas Moore",
+        "DOB": "1978-08-23",
+        "Address": "951 Maple St, Springfield",
+        "PhoneNumber": "555-4455"
+    },
+    {
+        "PatientID": 11,
+        "Name": "Charlotte Taylor",
+        "DOB": "1991-10-15",
+        "Address": "642 Pine St, Springfield",
+        "PhoneNumber": "555-6677"
+    },
+    {
+        "PatientID": 12,
+        "Name": "Amelia White",
+        "DOB": "1983-04-09",
+        "Address": "357 Birch St, Springfield",
+        "PhoneNumber": "555-8899"
+    },
+    {
+        "PatientID": 13,
+        "Name": "John Doe",
+        "DOB": "1990-01-01",
+        "Address": "123 Unknown St, Springfield",
+        "PhoneNumber": "555-0000"
+    },
+    {
+        "PatientID": 14,
+        "Name": "Jane Smith",
+        "DOB": "1985-06-15",
+        "Address": "456 Unknown St, Springfield",
+        "PhoneNumber": "555-1111"
+    }
+]
