@@ -14,7 +14,12 @@
         <!-- Search Section -->
         <section id="search-section">
             <p>Search for patients or add a new one:</p>
-            <input type="text" id="search" placeholder="Enter patient name..." />
+            <input 
+                type="text" 
+                id="search" 
+                placeholder="Example: John Doe" 
+                style="color: gray;" 
+            />
             <button id="search-btn">Search</button>
             <div id="results"></div>
         </section>
@@ -23,6 +28,7 @@
         <section id="details-section" style="display: none;">
             <h2>Patient Details</h2>
             <div id="patient-info"></div>
+            <button id="edit-btn">Edit Patient Information</button>
             <button id="back-btn">Back to Search</button>
         </section>
     </main>
@@ -32,6 +38,7 @@
     <script>
         const searchButton = document.getElementById('search-btn');
         const backButton = document.getElementById('back-btn');
+        const editButton = document.getElementById('edit-btn');
         const resultsDiv = document.getElementById('results');
         const detailsSection = document.getElementById('details-section');
         const searchSection = document.getElementById('search-section');
@@ -47,7 +54,7 @@
             }
 
             // Fetch mock data
-            fetch('mockData.json')
+            fetch('./mockData.json')
                 .then(response => response.json())
                 .then(data => {
                     const matchingPatients = data.filter(patient =>
@@ -77,7 +84,7 @@
 
         // View patient details
         window.viewPatient = (id) => {
-            fetch('mockData.json')
+            fetch('./mockData.json')
                 .then(response => response.json())
                 .then(data => {
                     const patient = data.find(patient => patient.PatientID === id);
@@ -94,6 +101,10 @@
                         <p><strong>Address:</strong> ${patient.Address}</p>
                         <p><strong>Phone Number:</strong> ${patient.PhoneNumber}</p>
                     `;
+
+                    // Save patient data in a hidden element for editing
+                    editButton.dataset.patient = JSON.stringify(patient);
+
                     searchSection.style.display = 'none';
                     detailsSection.style.display = 'block';
                 })
@@ -104,6 +115,50 @@
                     console.error('Error fetching mock data:', err);
                 });
         };
+
+        // Edit patient details
+        editButton.addEventListener('click', () => {
+            const patient = JSON.parse(editButton.dataset.patient);
+
+            const editForm = `
+                <form id="edit-form">
+                    <label>
+                        Name:
+                        <input type="text" id="edit-name" value="${patient.Name}" />
+                    </label><br />
+                    <label>
+                        Date of Birth:
+                        <input type="date" id="edit-dob" value="${patient.DOB}" />
+                    </label><br />
+                    <label>
+                        Address:
+                        <input type="text" id="edit-address" value="${patient.Address}" />
+                    </label><br />
+                    <label>
+                        Phone Number:
+                        <input type="text" id="edit-phone" value="${patient.PhoneNumber}" />
+                    </label><br />
+                    <button type="button" id="save-edit-btn">Save</button>
+                </form>
+            `;
+            patientInfoDiv.innerHTML = editForm;
+
+            // Save edited details
+            document.getElementById('save-edit-btn').addEventListener('click', () => {
+                const updatedPatient = {
+                    PatientID: patient.PatientID,
+                    Name: document.getElementById('edit-name').value,
+                    DOB: document.getElementById('edit-dob').value,
+                    Address: document.getElementById('edit-address').value,
+                    PhoneNumber: document.getElementById('edit-phone').value
+                };
+
+                console.log('Updated Patient:', updatedPatient);
+                alert('Patient information updated successfully!');
+                detailsSection.style.display = 'none';
+                searchSection.style.display = 'block';
+            });
+        });
 
         // Back to search
         backButton.addEventListener('click', () => {
