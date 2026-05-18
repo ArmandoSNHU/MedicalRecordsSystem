@@ -1,195 +1,149 @@
 # Medical Records System
 
-The **Medical Records System** is a comprehensive web-based application designed to simplify and streamline the management of patient records. It allows clerks to search, view, add, edit, and manage patient data seamlessly. This project demonstrates a robust understanding of web development, database integration, and modern user interface design.
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/API-Express-000000)](https://expressjs.com/)
+[![Database](https://img.shields.io/badge/Database-SQLite-044a64)](https://www.sqlite.org/)
 
----
+Medical Records System is a full-stack patient record management prototype. It demonstrates a basic healthcare-style CRUD workflow with an Express API, SQLite storage, and a browser-based interface for searching, viewing, adding, and updating records.
 
-## 🌟 Features
+This is a portfolio and learning project. It must use sample data only and should not be used with real patient records, protected health information, credentials, or production medical data.
 
-1. **Search for Patients**
-   - Search by patient name using a dynamic search bar.
-   - View patient details and edit records directly from the search results.
+## Features
 
-2. **View Patient Information**
-   - View detailed information for a specific patient, including:
-     - Name
-     - Date of Birth
-     - Address
-     - Phone Number
+- Search patient records by name.
+- View patient demographic details.
+- Add new patient records through a web form.
+- Update existing records through API-backed UI actions.
+- Serve static frontend assets from the Express application.
+- Store structured records in SQLite for local development.
 
-3. **Add New Patients**
-   - Easily add new patient records via an intuitive form.
+## Architecture
 
-4. **Edit Existing Records**
-   - Modify patient information directly from the application.
-
-5. **Responsive Design**
-   - A clean, user-friendly interface optimized for desktop and mobile use.
-
----
-
-## 🚀 Technology Stack
-
-1. **Frontend**
-   - HTML5
-   - CSS3
-   - JavaScript (ES6+)
-
-2. **Backend**
-   - Node.js with Express.js
-
-3. **Database**
-   - SQLite for managing patient records.
-
-4. **Version Control**
-   - Git and GitHub for source code management.
-
----
-
-## 🛠️ Installation Instructions
-
-Follow these steps to set up and run the Medical Records System locally:
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) installed on your system.
-- [Git](https://git-scm.com/) for version control.
-
-### Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/YourUsername/MedicalRecordsSystem.git
-   cd MedicalRecordsSystem
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Set up the SQLite database:
-   - Ensure the `medical_records.db` file is in the project directory (e.g., `D:/VSC/MedicalRecordsSystem/sqlite-dll-win-x64-3480000/medical_records.db`).
-   - Run the following command to ensure the database schema is correct:
-     ```sql
-     CREATE TABLE IF NOT EXISTS Patients (
-         PatientID INTEGER PRIMARY KEY AUTOINCREMENT,
-         Name TEXT NOT NULL,
-         DOB DATE NOT NULL,
-         Address TEXT,
-         PhoneNumber TEXT
-     );
-     ```
-
-4. Start the server:
-   ```bash
-   node app.js
-   ```
-
-5. Open your browser and navigate to:
-   ```
-   http://localhost:3000
-   ```
-
----
-
-## 📂 Project Structure
-
+```text
+Browser UI
+   |
+   | HTTP requests
+   v
+Express server (app.js)
+   |
+   | SQL queries
+   v
+SQLite database
 ```
+
+## Tech Stack
+
+| Layer | Technology |
+| --- | --- |
+| Frontend | HTML, CSS, JavaScript |
+| Backend | Node.js, Express |
+| Database | SQLite |
+| Testing | Node-based test script under `Test/` |
+
+## Quick Start
+
+Run from the repository root:
+
+```powershell
+npm install
+node app.js
+```
+
+Then open:
+
+```text
+http://localhost:3000
+```
+
+## API Reference
+
+### Search Patients
+
+```http
+GET /api/patients?name=<searchTerm>
+```
+
+Returns patient records whose names match the provided search term.
+
+### Get Patient By ID
+
+```http
+GET /api/patients/:id
+```
+
+Returns a single patient record.
+
+### Create Patient
+
+```http
+POST /api/patients
+Content-Type: application/json
+```
+
+```json
+{
+  "name": "Jane Doe",
+  "dob": "1990-01-01",
+  "address": "123 Main St",
+  "phone": "555-0100"
+}
+```
+
+### Update Patient
+
+```http
+PUT /api/patients
+Content-Type: application/json
+```
+
+```json
+{
+  "id": 1,
+  "name": "Jane Doe",
+  "dob": "1990-01-01",
+  "address": "456 Oak Ave",
+  "phone": "555-0199"
+}
+```
+
+## Repository Structure
+
+```text
 MedicalRecordsSystem/
-├── app.js              # Backend server and API endpoints
-├── index.html          # Main frontend interface
-├── style.css           # Stylesheet for the application
-├── script.js           # JavaScript for frontend functionality
-├── sqlite-dll-win-x64-3480000/
-│   └── medical_records.db  # SQLite database
-├── package.json        # Node.js project configuration
-└── README.md           # Project documentation
+├── app.js                    # Express server and API routes
+├── index.html                # Main patient search and entry UI
+├── patient-details.html      # Patient detail view
+├── script.js                 # Frontend behavior
+├── style.css                 # Application styling
+├── data/                     # Sample JSON data
+├── Test/                     # Test scripts
+├── package.json              # Node dependencies
+└── README.md
 ```
 
----
+## Repository Hygiene Notice
 
-## 🧩 API Endpoints
+This repository currently contains generated dependency and binary artifacts, including `node_modules/` and SQLite DLL files. For a cleaner public portfolio repository, those should be removed from version control and regenerated locally with `npm install`.
 
-### 1. **Search Patients**
-   - **Endpoint**: `/api/patients?name=<searchTerm>`
-   - **Method**: `GET`
-   - **Description**: Searches for patients whose name matches the provided term.
+The added `.gitignore` prevents future commits of dependency folders, local databases, logs, and environment files.
 
-### 2. **Get Patient Details**
-   - **Endpoint**: `/api/patients/:id`
-   - **Method**: `GET`
-   - **Description**: Fetches the details of a specific patient by ID.
+## Security And Privacy
 
-### 3. **Add a New Patient**
-   - **Endpoint**: `/api/patients`
-   - **Method**: `POST`
-   - **Request Body**:
-     ```json
-     {
-       "name": "John Doe",
-       "dob": "1990-01-01",
-       "address": "123 Main St",
-       "phone": "1234567890"
-     }
-     ```
-   - **Description**: Adds a new patient to the database.
+- Use sample data only.
+- Do not commit real patient information.
+- Do not commit database files containing sensitive data.
+- Add authentication and authorization before any real deployment scenario.
+- Treat this project as a prototype, not a production medical records platform.
 
-### 4. **Edit a Patient**
-   - **Endpoint**: `/api/patients`
-   - **Method**: `PUT`
-   - **Request Body**:
-     ```json
-     {
-       "id": 1,
-       "name": "John Doe Updated",
-       "dob": "1990-01-01",
-       "address": "456 Elm St",
-       "phone": "9876543210"
-     }
-     ```
-   - **Description**: Updates the details of an existing patient.
+## Roadmap
 
----
+- Add authentication and role-based access control.
+- Move database path and server port into environment configuration.
+- Add request validation and consistent error responses.
+- Add pagination for large record sets.
+- Add automated API tests.
 
-
-## 📈 Future Improvements
-
-1. Add **authentication** for secure access.
-2. Implement **pagination** for large patient records.
-3. Add support for **file uploads** (e.g., patient images, documents).
-4. Enhance the UI with modern frameworks like **Bootstrap** or **Tailwind CSS**.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add feature-name"
-   ```
-4. Push to your branch:
-   ```bash
-   git push origin feature-name
-   ```
-5. Submit a pull request.
-
----
-
-## 📝 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 🧑‍💻 Author
+## Author
 
 Armando Gomez  
-- GitHub: [ArmandoSNHU](https://github.com/ArmandoSNHU)  
-- Email: armandogom83@yahoo.com  
-
--
+GitHub: [@ArmandoSNHU](https://github.com/ArmandoSNHU)

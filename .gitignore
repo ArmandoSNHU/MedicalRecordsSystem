@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+*.log
+npm-debug.log*
+medical_records.db
+*.sqlite
+*.sqlite3
+sqlite-dll-win-x64-*/
+coverage/
+.DS_Store
+Thumbs.db
+
