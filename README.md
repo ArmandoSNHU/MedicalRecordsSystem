@@ -1,71 +1,98 @@
 # Medical Records System
 
-[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-22.5%2B-339933)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/API-Express-000000)](https://expressjs.com/)
 [![Database](https://img.shields.io/badge/Database-SQLite-044a64)](https://www.sqlite.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
-Medical Records System is a full-stack patient record management prototype. It demonstrates a basic healthcare-style CRUD workflow with an Express API, SQLite storage, and a browser-based interface for searching, viewing, adding, and updating records.
+A full-stack patient records management prototype. It demonstrates a healthcare-style
+CRUD workflow with an Express REST API, SQLite storage, and a browser-based interface
+for searching, viewing, adding, and updating patient records.
 
-This is a portfolio and learning project. It must use sample data only and should not be used with real patient records, protected health information, credentials, or production medical data.
+> **Sample data only.** This is a portfolio and learning project. It ships with
+> fictional records and must not be used with real patient information, protected
+> health information (PHI), credentials, or production medical data.
 
 ## Features
 
 - Search patient records by name.
-- View patient demographic details.
-- Add new patient records through a web form.
-- Update existing records through API-backed UI actions.
-- Serve static frontend assets from the Express application.
-- Store structured records in SQLite for local development.
+- View a patient's demographic details.
+- Add new patient records through the API / web form.
+- Update existing patient records.
+- Serve the static front end directly from the Express application.
+- Store structured records in SQLite, seeded from `mockData.json` on first run.
+
+## Tech Stack
+
+| Layer     | Technology                                             |
+| --------- | ------------------------------------------------------ |
+| Frontend  | HTML, CSS, vanilla JavaScript                          |
+| Backend   | Node.js, Express                                       |
+| Database  | SQLite via Node's built-in `node:sqlite` driver        |
+| Testing   | Node assertion script (`Test/testDatabase.js`)         |
+
+There is no native build step: the app uses the SQLite driver that ships with
+Node.js (available in Node 22.5+), so the only runtime dependency is Express.
 
 ## Architecture
 
 ```text
-Browser UI
-   |
-   | HTTP requests
-   v
+Browser UI (index.html / script.js)
+        |
+        |  HTTP (fetch) requests
+        v
 Express server (app.js)
-   |
-   | SQL queries
-   v
-SQLite database
+        |
+        |  SQL queries
+        v
+SQLite database (medical_records.db, generated locally)
 ```
 
-## Tech Stack
+## Requirements
 
-| Layer | Technology |
-| --- | --- |
-| Frontend | HTML, CSS, JavaScript |
-| Backend | Node.js, Express |
-| Database | SQLite |
-| Testing | Node-based test script under `Test/` |
+- Node.js 22.5 or newer (for the built-in `node:sqlite` module).
 
-## Quick Start
+## How to Run
 
-Run from the repository root:
+From the repository root:
 
-```powershell
+```bash
 npm install
-node app.js
+npm start
 ```
 
-Then open:
+Then open <http://localhost:3000> in a browser.
 
-```text
-http://localhost:3000
+On first launch the app creates `medical_records.db` and seeds it with the sample
+records from `mockData.json`. The listening port can be overridden with the `PORT`
+environment variable.
+
+To rebuild the database from the sample data at any time:
+
+```bash
+npm run seed
 ```
+
+## How to Test
+
+```bash
+npm test
+```
+
+The test seeds an in-memory database from `mockData.json` and asserts that records
+can be read back and searched by name. It exits non-zero on failure.
 
 ## API Reference
 
-### Search Patients
+### Search patients
 
 ```http
 GET /api/patients?name=<searchTerm>
 ```
 
-Returns patient records whose names match the provided search term.
+Returns patient records whose names match the search term.
 
-### Get Patient By ID
+### Get patient by ID
 
 ```http
 GET /api/patients/:id
@@ -73,14 +100,12 @@ GET /api/patients/:id
 
 Returns a single patient record.
 
-### Create Patient
+### Create patient
 
 ```http
 POST /api/patients
 Content-Type: application/json
-```
 
-```json
 {
   "name": "Jane Doe",
   "dob": "1990-01-01",
@@ -89,14 +114,12 @@ Content-Type: application/json
 }
 ```
 
-### Update Patient
+### Update patient
 
 ```http
 PUT /api/patients
 Content-Type: application/json
-```
 
-```json
 {
   "id": 1,
   "name": "Jane Doe",
@@ -106,44 +129,58 @@ Content-Type: application/json
 }
 ```
 
-## Repository Structure
+## Data Model
+
+Records live in the `Patients` table. Each record has the following fields:
+
+| Field         | Type    | Description                                  |
+| ------------- | ------- | -------------------------------------------- |
+| `PatientID`   | INTEGER | Primary key (auto-assigned on insert).       |
+| `Name`        | TEXT    | Patient full name (required).                |
+| `DOB`         | TEXT    | Date of birth, `YYYY-MM-DD`.                 |
+| `Address`     | TEXT    | Mailing address.                             |
+| `PhoneNumber` | TEXT    | Contact phone number.                        |
+
+The sample records in `mockData.json` are entirely fictional.
+
+## Project Structure
 
 ```text
 MedicalRecordsSystem/
-├── app.js                    # Express server and API routes
-├── index.html                # Main patient search and entry UI
-├── patient-details.html      # Patient detail view
-├── script.js                 # Frontend behavior
-├── style.css                 # Application styling
-├── data/                     # Sample JSON data
-├── Test/                     # Test scripts
-├── package.json              # Node dependencies
+├── app.js                 # Express server and REST API routes
+├── seed.js                # Builds/seeds the SQLite database from mockData.json
+├── mockData.json          # Fictional sample patient records (seed data)
+├── index.html             # Patient search and details UI
+├── patient-details.html   # Standalone patient detail view
+├── script.js              # Front-end behavior for the API-backed UI
+├── style.css              # Application styling
+├── Test/
+│   └── testDatabase.js    # Seed-and-query test
+├── package.json           # Metadata, scripts, and dependencies
+├── LICENSE                # MIT license
 └── README.md
 ```
 
-## Repository Hygiene Notice
+## Security and Privacy
 
-This repository currently contains generated dependency and binary artifacts, including `node_modules/` and SQLite DLL files. For a cleaner public portfolio repository, those should be removed from version control and regenerated locally with `npm install`.
-
-The added `.gitignore` prevents future commits of dependency folders, local databases, logs, and environment files.
-
-## Security And Privacy
-
-- Use sample data only.
-- Do not commit real patient information.
-- Do not commit database files containing sensitive data.
-- Add authentication and authorization before any real deployment scenario.
+- Use fictional sample data only.
+- Do not commit real patient information or database files containing sensitive data.
+- Add authentication, authorization, input validation, and audit logging before any
+  real-world use.
 - Treat this project as a prototype, not a production medical records platform.
 
 ## Roadmap
 
 - Add authentication and role-based access control.
-- Move database path and server port into environment configuration.
 - Add request validation and consistent error responses.
 - Add pagination for large record sets.
-- Add automated API tests.
+- Expand the automated test suite to cover the HTTP API layer.
+
+## License
+
+Released under the [MIT License](LICENSE).
 
 ## Author
 
-Armando Gomez  
+Armando Gomez
 GitHub: [@ArmandoSNHU](https://github.com/ArmandoSNHU)

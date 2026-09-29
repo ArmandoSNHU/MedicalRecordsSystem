@@ -1,6 +1,26 @@
 {
+  "name": "medical-records-system",
+  "version": "1.0.0",
+  "description": "Full-stack patient records management prototype: an Express + SQLite CRUD API with a browser-based front end. Sample data only.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning app.js",
+    "seed": "node --disable-warning=ExperimentalWarning seed.js",
+    "test": "node --disable-warning=ExperimentalWarning Test/testDatabase.js"
+  },
+  "keywords": [
+    "express",
+    "sqlite",
+    "crud",
+    "rest-api",
+    "portfolio"
+  ],
+  "author": "Armando Gomez",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.5.0"
+  },
   "dependencies": {
-    "express": "^4.21.2",
-    "sqlite3": "^5.1.7"
+    "express": "^4.21.2"
   }
 }
